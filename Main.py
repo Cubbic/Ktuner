@@ -1,17 +1,25 @@
 import wx
-import Layout
-import gettext
+import Layout  # Layout code generated from wxGlade
+import gettext # for localisation shit required by wxGlade
+import aubio
 
 ly = Layout
 
 
+
     
 if __name__ == "__main__":
-    gettext.install("app") # replace with the appropriate catalog name
+    gettext.install("app") 
 
     app = wx.App()
     
-    frame = ly.MyFrame(None, wx.ID_ANY, "")
+    frame = ly.MainFrame(None, wx.ID_ANY )
+    #frame.derivation.SetLabel()   
+    
     app.SetTopWindow(frame)
     frame.Show()
     app.MainLoop()
+
+
+
+        
