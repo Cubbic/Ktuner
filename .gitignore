@@ -1,4 +1,7 @@
 *.pyc
+*.wxg#
+*.wxg~
+*.py~
 #~wxg.autosave~wxglade_desing.wxg#
 
 # Packages #
