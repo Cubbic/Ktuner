@@ -1,9 +1,8 @@
 import wx
-import Layout  # Layout code generated from wxGlade
+import Layout as ly  # Layout code generated from wxGlade
 import gettext # for localisation shit required by wxGlade
 import aubio
 
-ly = Layout
 
 
 
@@ -21,5 +20,5 @@ if __name__ == "__main__":
     app.MainLoop()
 
 
-
-        
+    frame.input_list.AppendItems(["hello","hello2"])
+    
