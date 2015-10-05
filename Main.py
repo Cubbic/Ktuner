@@ -23,7 +23,7 @@ if __name__ == "__main__":
     input_devices_list = PitchDetection.get_input_devices()
     for i in input_devices_list :
         frame.input_list.Append(i.get('name'))
-        #frame.input_list.AppendItems()
+    frame.input_list.SetSelection(0)    
         
     
     
