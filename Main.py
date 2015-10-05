@@ -2,6 +2,7 @@ import wx
 import Layout as ly  # Layout code generated from wxGlade
 import gettext # for localisation shit required by wxGlade
 import aubio
+import PitchDetection 
 
 
 
@@ -19,6 +20,11 @@ if __name__ == "__main__":
     frame.Show()
     app.MainLoop()
 
-
-    frame.input_list.AppendItems(["hello","hello2"])
+    input_devices_list = PitchDetection.get_input_devices()
+    for i in input_devices_list :
+        frame.input_list.Append(i.get('name'))
+        #frame.input_list.AppendItems()
+        
+    
+    
     
