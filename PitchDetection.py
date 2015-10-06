@@ -2,13 +2,6 @@ import pyaudio
 import aubio
 import Layout as ly
 
-       
-                
-
-
-       
-
-
 def get_input_devices ():
         p = pyaudio.PyAudio()
         info = p.get_host_api_info_by_index(0)
@@ -26,4 +19,32 @@ def get_input_devices ():
         p.terminate()
         return input_devices_list
         
-get_input_devices()
+def start_stream ():
+        FORMAT = pyaudio.paInt16
+        CHANNELS = 2
+        RATE = 44100
+        CHUNK = 1024
+        RECORD_SECONDS = 5
+        
+        
+        audio = pyaudio.PyAudio()
+             
+        # start Recording
+        stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,frames_per_buffer=CHUNK,
+                            input_device_index = None
+        print "recording..."
+        frames = []
+        
+        for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+                data = stream.read(CHUNK)
+                frames.append(data)
+        print "finished recording"
+        
+        
+        # stop Recording
+        stream.stop_stream()
+        stream.close()
+        audio.terminate()
+                
+start_stream()                
+        
