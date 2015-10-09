@@ -1,5 +1,5 @@
 import pyaudio
-import aubio
+from aubio import pitch
 import Layout as ly
 
 def get_input_devices ():
@@ -31,14 +31,20 @@ def start_stream ():
              
         # start Recording
         stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,frames_per_buffer=CHUNK,
-                            input_device_index = None
+                            input_device_index = None)
         print "recording..."
-        frames = []
         
-        for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+        
+        
+        while True:
                 data = stream.read(CHUNK)
-                frames.append(data)
-        print "finished recording"
+        samplerate = 44100
+        win_s = 4096 
+        hop_s = 512  
+        pitch_o = pitch("yin", win_s, hop_s, samplerate)
+        print pitch_o
+                
+                
         
         
         # stop Recording

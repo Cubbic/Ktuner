@@ -24,6 +24,8 @@ if __name__ == "__main__":
     for i in input_devices_list :
         frame.input_list.Append(i.get('name'))
     frame.input_list.SetSelection(0)    
+    
+    print dir(aubio.pitch)
         
     
     
