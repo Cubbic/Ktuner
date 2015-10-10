@@ -4,6 +4,9 @@
 *.py~
 #~wxg.autosave~wxglade_desing.wxg#
 
+#ignore virtualenv dir
+env/
+
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source

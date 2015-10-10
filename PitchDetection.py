@@ -1,9 +1,12 @@
 import pyaudio
-from aubio import pitch
+import analyse #soundanalyse
 import Layout as ly
+import numpy
 
+
+p = pyaudio.PyAudio()
 def get_input_devices ():
-        p = pyaudio.PyAudio()
+        
         info = p.get_host_api_info_by_index(0)
         
         numdevices = info.get('deviceCount')
@@ -20,37 +23,20 @@ def get_input_devices ():
         return input_devices_list
         
 def start_stream ():
-        FORMAT = pyaudio.paInt16
-        CHANNELS = 2
-        RATE = 44100
-        CHUNK = 1024
-        RECORD_SECONDS = 5
-        
-        
-        audio = pyaudio.PyAudio()
-             
-        # start Recording
-        stream = audio.open(format=FORMAT, channels=CHANNELS,rate=RATE, input=True,frames_per_buffer=CHUNK,
-                            input_device_index = None)
-        print "recording..."
-        
-        
-        
+        stream = p.open(
+                format = pyaudio.paInt16,
+                channels = 1,
+                rate = int(p.get_device_info_by_index(1)['defaultSampleRate']),
+                input_device_index = 1,
+                input = True)
+        print int(p.get_device_info_by_index(1)['defaultSampleRate'])
         while True:
-                data = stream.read(CHUNK)
-        samplerate = 44100
-        win_s = 4096 
-        hop_s = 512  
-        pitch_o = pitch("yin", win_s, hop_s, samplerate)
-        print pitch_o
-                
-                
-        
-        
-        # stop Recording
-        stream.stop_stream()
-        stream.close()
-        audio.terminate()
+                # Read raw microphone data
+                rawsamps = stream.read(1024)
+                # Convert raw data to NumPy array
+                samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
+                # Show the volume and pitch
+                print analyse.loudness(samps), analyse.musical_detect_pitch(samps)
                 
 start_stream()                
         
