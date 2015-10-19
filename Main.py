@@ -1,7 +1,7 @@
 import wx
 import Layout as ly  # Layout code generated from wxGlade
 import gettext # for localisation shit required by wxGlade
-import aubio
+
 import PitchDetection 
 
 
@@ -25,7 +25,6 @@ if __name__ == "__main__":
         frame.input_list.Append(i.get('name'))
     frame.input_list.SetSelection(0)    
     
-    print dir(aubio.pitch)
         
     
     

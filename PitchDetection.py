@@ -1,42 +1,22 @@
 import pyaudio
 import analyse #soundanalyse
 import Layout as ly
-import numpy
+import numpy,time
+import alsaaudio ,wave
 
 
-p = pyaudio.PyAudio()
 def get_input_devices ():
-        
-        info = p.get_host_api_info_by_index(0)
-        
-        numdevices = info.get('deviceCount')
-        
-        input_devices_list = []
-        #for each audio device, determine if is an input or an output and add it to the appropriate list and dictionary
-        for i in range (0,numdevices):
-                if p.get_device_info_by_host_api_device_index(0,i).get('maxInputChannels')>0:
-                        #print "Input Device id ", i, " - ", p.get_device_info_by_host_api_device_index(0,i).get('name')
-                        input_devices_list.append ( p.get_device_info_by_host_api_device_index(0,i) )
-                     
-          
-        p.terminate()
-        return input_devices_list
+        pass
         
 def start_stream ():
-        stream = p.open(
-                format = pyaudio.paInt16,
-                channels = 1,
-                rate = int(p.get_device_info_by_index(1)['defaultSampleRate']),
-                input_device_index = 1,
-                input = True)
-        print int(p.get_device_info_by_index(1)['defaultSampleRate'])
+        inp = alsaaudio.PCM(type= alsaaudio.PCM_CAPTURE, mode=alsaaudio.PCM_NORMAL,device='default')
+        inp.setchannels(1)
+        inp.setrate(44100)
+        inp.setformat(alsaaudio.PCM_FORMAT_S16_LE)
+        inp.setperiodsize(1024)
         while True:
-                # Read raw microphone data
-                rawsamps = stream.read(1024)
-                # Convert raw data to NumPy array
-                samps = numpy.fromstring(rawsamps, dtype=numpy.int16)
-                # Show the volume and pitch
-                print analyse.loudness(samps), analyse.musical_detect_pitch(samps)
-                
+                length, data = inp.read()
+                samps = numpy.fromstring(data, dtype='int16')                
+                print analyse.musical_detect_pitch(samps)      
 start_stream()                
         
