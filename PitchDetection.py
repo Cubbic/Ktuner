@@ -1,12 +1,12 @@
-import pyaudio
 import analyse #soundanalyse
 import Layout as ly
-import numpy,time
-import alsaaudio ,wave
+import numpy
+import alsaaudio 
+import threading
 
 
 def get_input_devices ():
-        pass
+        return alsaaudio.pcms(alsaaudio.PCM_CAPTURE)
         
 def start_stream ():
         inp = alsaaudio.PCM(type= alsaaudio.PCM_CAPTURE, mode=alsaaudio.PCM_NORMAL,device='default')
@@ -18,5 +18,7 @@ def start_stream ():
                 length, data = inp.read()
                 samps = numpy.fromstring(data, dtype='int16')                
                 print analyse.musical_detect_pitch(samps)      
-start_stream()                
-        
+
+detect_pitch_thread = threading.Thread(target=start_stream)
+detect_pitch_thread.start()
+
