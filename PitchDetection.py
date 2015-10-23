@@ -17,8 +17,9 @@ def start_stream ():
         while True:
                 length, data = inp.read()
                 samps = numpy.fromstring(data, dtype='int16')                
-                print analyse.musical_detect_pitch(samps)      
+                #print analyse.musical_detect_pitch(samps)      
 
 detect_pitch_thread = threading.Thread(target=start_stream)
 detect_pitch_thread.start()
+
 
