@@ -6,6 +6,8 @@
 
 #ignore virtualenv dir
 env/
+#ignore vscode working directory
+.vscode/
 
 # Packages #
 ############
