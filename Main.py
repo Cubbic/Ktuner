@@ -5,8 +5,9 @@ import gettext # for localisation shit required by wxGlade
 import numpy,time ,math
 import alsaaudio 
 import threading , Queue
-from multi_key_dict import multi_key_dict
+from multi_key_dict import multi_key_dict #this lib allow to point multiple keys to a value which is not realized in standart dictionary lib
 
+#note_dict is a dictionary of midi key values which point to a note
 note_dict = multi_key_dict()
 note_dict[0,12,24,36,48,60,72,84,96,108,120] = "C"
 note_dict[1,13,25,37,49,61,73,85,97,109,121] = "C#"
