@@ -23,7 +23,7 @@ class MainFrame(wx.Frame):
         self.indicator_left = wx.StaticText(self, wx.ID_ANY, "")
         self.note = wx.StaticText(self, wx.ID_ANY, _("None"))
         self.indicator_right = wx.StaticText(self, wx.ID_ANY, "")
-        self.freq = wx.StaticText(self, wx.ID_ANY, _("0 Hz"))
+        self.midi_note = wx.StaticText(self, wx.ID_ANY, _("None"))
         self.input_list = wx.Choice(self, wx.ID_ANY, choices=[])
 
         self.__set_properties()
@@ -41,8 +41,8 @@ class MainFrame(wx.Frame):
         self.note.SetFont(wx.Font(30, wx.SWISS, wx.NORMAL, wx.BOLD, 0, ""))
         self.indicator_right.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOWFRAME))
         self.indicator_right.SetFont(wx.Font(20, wx.SWISS, wx.NORMAL, wx.NORMAL, 0, ""))
-        self.freq.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOWFRAME))
-        self.freq.SetFont(wx.Font(20, wx.SWISS, wx.NORMAL, wx.NORMAL, 0, ""))
+        self.midi_note.SetBackgroundColour(wx.SystemSettings_GetColour(wx.SYS_COLOUR_WINDOWFRAME))
+        self.midi_note.SetFont(wx.Font(20, wx.SWISS, wx.NORMAL, wx.NORMAL, 0, ""))
         # end wxGlade
 
     def __do_layout(self):
@@ -54,7 +54,7 @@ class MainFrame(wx.Frame):
         grid_sizer.Add(self.note, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_CENTER_VERTICAL, 0)
         grid_sizer.Add(self.indicator_right, 0, wx.ALIGN_CENTER_HORIZONTAL | wx.ALIGN_CENTER_VERTICAL, 0)
         sizer.Add(grid_sizer, 1, wx.EXPAND, 0)
-        sizer.Add(self.freq, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
+        sizer.Add(self.midi_note, 0, wx.ALIGN_CENTER_HORIZONTAL, 0)
         sizer.Add(self.input_list, 0, wx.LEFT, 5)
         self.SetSizer(sizer)
         sizer.Fit(self)

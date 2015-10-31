@@ -71,13 +71,17 @@ def get_midi_note(pitch):
 def show_note(pitch):
     midi_note = get_midi_note(pitch)
     try:
-        frame.note.SetLabel(str(note_dict[midi_note]))
+          
+        frame.note.SetLabel(str(note_dict[midi_note])) #this part will throw an exception if midi_note is None
+        frame.midi_note.SetLabel(str(midi_note)) #Should be placed bellow note.SetLabel 
     except:
         global count_none
         count_none +=1
         if count_none >= 100 :
             count_none = 0
             frame.note.SetLabel("None")
+            frame.midi_note.SetLabel("None") 
+
 
 
 def start_stream ():
