@@ -44,12 +44,12 @@ def show_derivation(pitch):
         frac,whole = math.modf(pitch)
 
         deriv = ""
-        for i in range(2,4) :
+        for i in range(2,3) :
             str_frac = str(frac)
             deriv +=str_frac[i]
         
         frame.derivation.SetLabel(deriv)
-
+#TODO show derivation with + or - 
 
    
 def get_midi_note(pitch):
@@ -73,15 +73,16 @@ def show_note(pitch):
     try:
           
         frame.note.SetLabel(str(note_dict[midi_note])) #this part will throw an exception if midi_note is None
-        frame.midi_note.SetLabel(str(midi_note)) #Should be placed bellow note.SetLabel 
+        frame.midi_note.SetLabel("MidiNote: "  + str(midi_note)) #Should be placed bellow note.SetLabel 
+        frame.Layout() # 
     except:
         global count_none
         count_none +=1
         if count_none >= 100 :
             count_none = 0
             frame.note.SetLabel("None")
-            frame.midi_note.SetLabel("None") 
-
+            frame.midi_note.SetLabel("MidiNote: None") 
+            frame.Layout()
 
 
 def start_stream ():
