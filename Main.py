@@ -36,7 +36,7 @@ def get_input_devices ():
         return alsaaudio.pcms(alsaaudio.PCM_CAPTURE) 
         # TODO  too many devices are being shown
 
-def show_derivation(pitch):
+def get_derivation(pitch):
     """ Show first 2 decimal numbers as derivation """
     if pitch is None:
         frame.derivation.SetLabel("0")
@@ -48,7 +48,7 @@ def show_derivation(pitch):
             str_frac = str(frac)
             deriv +=str_frac[i]
         
-        frame.derivation.SetLabel(deriv)
+        return deriv 
 #TODO show derivation with + or - 
 
    
@@ -68,13 +68,14 @@ def get_midi_note(pitch):
     return note
  
 
-def show_note(pitch):
+def show_everything(pitch):
     midi_note = get_midi_note(pitch)
     try:
           
         frame.note.SetLabel(str(note_dict[midi_note])) #this part will throw an exception if midi_note is None
         frame.midi_note.SetLabel("MidiNote: "  + str(midi_note)) #Should be placed bellow note.SetLabel 
-        frame.Layout() # 
+        frame.derivation.SetLabel(get_derivation(pitch))
+        frame.Layout() # TODO description
     except:
         global count_none
         count_none +=1
@@ -98,8 +99,8 @@ def start_stream ():
             samps = numpy.fromstring(data, dtype='int16') 
 
             pitch = analyse.musical_detect_pitch(samps)          
-            wx.CallAfter(show_derivation,pitch )  #CallAfter is necessary for making GUI method calls from non-GUI threads    
-            wx.CallAfter(show_note,pitch) # pitch is passed as an argument
+            #CallAfter is necessary for making GUI method calls from non-GUI threads    
+            wx.CallAfter(show_everything,pitch) # pitch is passed as an argument
             
 
 
