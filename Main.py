@@ -37,18 +37,16 @@ def get_input_devices ():
         # TODO  too many devices are being shown
 
 def get_derivation(pitch):
-    """ Show first 2 decimal numbers as derivation """
-    if pitch is None:
-        frame.derivation.SetLabel("0")
-    else:
-        frac,whole = math.modf(pitch)
+    """ TODO comment """
+    
+    frac,whole = math.modf(pitch)
 
-        deriv = ""
-        for i in range(2,3) :
-            str_frac = str(frac)
-            deriv +=str_frac[i]
-        
-        return deriv 
+    deriv = ""
+    for i in range(2,3) :
+        if str(frac[i]) < 5:
+            print good
+        print str(frac[i])
+    return deriv 
 #TODO show derivation with + or - 
 
    
@@ -75,12 +73,13 @@ def show_everything(pitch):
         frame.note.SetLabel(str(note_dict[midi_note])) #this part will throw an exception if midi_note is None
         frame.midi_note.SetLabel("MidiNote: "  + str(midi_note)) #Should be placed bellow note.SetLabel 
         frame.derivation.SetLabel(get_derivation(pitch))
-        frame.Layout() # TODO description
+        frame.Layout() # aranges Layout to center the text
     except:
         global count_none
         count_none +=1
         if count_none >= 100 :
             count_none = 0
+            frame.derivation.SetLabel("0")          
             frame.note.SetLabel("None")
             frame.midi_note.SetLabel("MidiNote: None") 
             frame.Layout()

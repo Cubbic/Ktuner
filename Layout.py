@@ -19,7 +19,7 @@ class MainFrame(wx.Frame):
         # begin wxGlade: MainFrame.__init__
         kwds["style"] = wx.DEFAULT_FRAME_STYLE
         wx.Frame.__init__(self, *args, **kwds)
-        self.derivation = wx.StaticText(self, wx.ID_ANY, _("0"))
+        self.derivation = wx.StaticText(self, wx.ID_ANY, _("0"), style=wx.ALIGN_CENTRE)
         self.indicator_left = wx.StaticText(self, wx.ID_ANY, "")
         self.note = wx.StaticText(self, wx.ID_ANY, _("None"))
         self.indicator_right = wx.StaticText(self, wx.ID_ANY, "")
