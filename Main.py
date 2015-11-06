@@ -41,11 +41,9 @@ def get_derivation(pitch):
     
     frac,whole = math.modf(pitch)
 
-    deriv = ""
-    for i in range(2,3) :
-        if str(frac[i]) < 5:
-            print good
-        print str(frac[i])
+    deriv = str(frac)[2]
+    
+        
     return deriv 
 #TODO show derivation with + or - 
 
@@ -72,7 +70,8 @@ def show_everything(pitch):
           
         frame.note.SetLabel(str(note_dict[midi_note])) #this part will throw an exception if midi_note is None
         frame.midi_note.SetLabel("MidiNote: "  + str(midi_note)) #Should be placed bellow note.SetLabel 
-        frame.derivation.SetLabel(get_derivation(pitch))
+        
+        frame.derivation.SetLabel( str(get_derivation(pitch)) )
         frame.Layout() # aranges Layout to center the text
     except:
         global count_none
