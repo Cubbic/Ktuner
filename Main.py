@@ -40,8 +40,10 @@ def get_derivation(pitch):
     """ TODO comment """
     
     frac,whole = math.modf(pitch)
-
-    deriv = str(frac)[2]
+    if int(str(frac)[2]) < 5 and int(str(frac)[2]) != 0:
+        deriv = "-" + str(frac)[2]
+    elif int(str(frac)[2]) >= 5:
+        deriv = "+" + str(frac)[2] 
     
         
     return deriv 
