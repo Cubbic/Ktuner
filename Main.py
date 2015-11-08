@@ -89,8 +89,8 @@ def show_everything(pitch, hz):
             frame.hz.SetLabel("0Hz") 
             
     finally:
-        frame.note.Layout() # aranges Layout to center the text
-        frame.hz.Layout()
+        frame.Layout() # aranges Layout to center the text
+        
 
 
 def start_stream ():
