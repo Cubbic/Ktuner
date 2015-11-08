@@ -47,8 +47,12 @@ def get_derivation(pitch):
     
         
     return deriv 
-#TODO show derivation with + or - 
 
+def get_hz_whole (hz):
+    """return whole part of a float hz """
+    frac,whole = math.modf(hz)
+    whole = int(whole)
+    return whole
    
 def get_midi_note(pitch):
     """From float pitch this func is  returning  int midi note or None if the pitch is also None"""
@@ -66,15 +70,15 @@ def get_midi_note(pitch):
     return note
  
 
-def show_everything(pitch):
+def show_everything(pitch, hz):
     midi_note = get_midi_note(pitch)
     try:
           
         frame.note.SetLabel(str(note_dict[midi_note])) #this part will throw an exception if midi_note is None
-        frame.midi_note.SetLabel("MidiNote: "  + str(midi_note)) #Should be placed bellow note.SetLabel 
-        
+        #frame.midi_note.SetLabel("MidiNote: "  + str(midi_note)) #Should be placed bellow note.SetLabel 
+        frame.hz.SetLabel(str(get_hz_whole(hz)) + "Hz" )
         frame.derivation.SetLabel( str(get_derivation(pitch)) )
-        frame.Layout() # aranges Layout to center the text
+        
     except:
         global count_none
         count_none +=1
@@ -82,8 +86,11 @@ def show_everything(pitch):
             count_none = 0
             frame.derivation.SetLabel("0")          
             frame.note.SetLabel("None")
-            frame.midi_note.SetLabel("MidiNote: None") 
-            frame.Layout()
+            frame.hz.SetLabel("0Hz") 
+            
+    finally:
+        frame.note.Layout() # aranges Layout to center the text
+        frame.hz.Layout()
 
 
 def start_stream ():
@@ -92,15 +99,16 @@ def start_stream ():
     inp.setchannels(1)
     inp.setrate(44100)
     inp.setformat(alsaaudio.PCM_FORMAT_S16_LE)
-    inp.setperiodsize(1024)
+    inp.setperiodsize(3072)
      
     while True:
             length, data = inp.read()
             samps = numpy.fromstring(data, dtype='int16') 
 
-            pitch = analyse.musical_detect_pitch(samps)          
+            pitch = analyse.musical_detect_pitch(samps)
+            hz =    analyse.detect_pitch(samps)     
             #CallAfter is necessary for making GUI method calls from non-GUI threads    
-            wx.CallAfter(show_everything,pitch) # pitch is passed as an argument
+            wx.CallAfter(show_everything,pitch,hz) # pitch is passed as an argument
             
 
 
