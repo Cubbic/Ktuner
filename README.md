@@ -1,4 +1,4 @@
-# Ktuner 
+# TRtuner 
 A simple tuner for Linux which shows the note , derivation from the note and Hz of sound received by mic.
 
 ![screenshot](http://i.imgur.com/bmHzONJ.png)
